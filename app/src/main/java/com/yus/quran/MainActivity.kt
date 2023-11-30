@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             Toast.makeText(this, "Permission not found.", Toast.LENGTH_SHORT).show()
+            getUserLocation()
         }
     }
 

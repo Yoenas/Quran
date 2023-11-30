@@ -78,9 +78,6 @@ class AdzanRepository(
         result.addSource(liveDataLocation) {
             result.value = combineLatestData(liveDataLocation, liveDataDailyAdzanTime, currentDate)
         }
-        result.addSource(liveDataCityId) {
-            result.value = combineLatestData(liveDataLocation, liveDataDailyAdzanTime, currentDate)
-        }
         result.addSource(liveDataDailyAdzanTime) {
             result.value = combineLatestData(liveDataLocation, liveDataDailyAdzanTime, currentDate)
         }

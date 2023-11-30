@@ -90,12 +90,22 @@ class LocationPreferences(val context: Context) {
         var result = ""
         if (isEnglish) {
             for (i in 0 until phrase.size - 1) {
-                result += phrase[i]
+                result += if (phrase.size > 2){
+                    phrase[i] + " "
+                } else {
+                    phrase[i] + " "
+                }
             }
+            result = result.dropLast(1)
         } else {
             for (i in 1 until phrase.size) {
-                result += phrase[i]
+                result += if (phrase.size > 2){
+                    phrase[i] + " "
+                } else {
+                    phrase[i] + " "
+                }
             }
+            result = result.dropLast(1)
         }
         return result
     }
