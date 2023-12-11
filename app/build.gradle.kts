@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.yus.quran"
+    namespace = "com.idn.quran"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.yus.quran"
+        applicationId = "com.idn.quran"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
