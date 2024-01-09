@@ -4,6 +4,7 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -35,6 +36,8 @@ class DetailSurahActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityDetailSurahBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        _mediaPlayer = MediaPlayer()
 
         _surah = when {
             Build.VERSION.SDK_INT >= 33 -> intent.getParcelableExtra(EXTRA_DATA, Surah::class.java)
@@ -159,7 +162,9 @@ class DetailSurahActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        mediaPlayer.stop()
+        if (mediaPlayer.isPlaying)
+            mediaPlayer.stop()
+        else Log.i("DetailSurahActivity", "onPause: Pause Activity")
     }
 
     override fun onStop() {
