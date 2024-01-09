@@ -1,4 +1,4 @@
-package com.idn.quran
+package com.idn.quran.presentation
 
 import android.Manifest
 import android.content.Context
@@ -10,10 +10,12 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.idn.quran.R
 import com.idn.quran.databinding.ActivityMainBinding
 import com.idn.quran.utils.PERMISSION_LOC_REQ_CODE
 
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
