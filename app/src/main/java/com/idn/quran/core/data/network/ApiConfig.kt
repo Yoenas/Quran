@@ -23,5 +23,5 @@ object ApiConfig {
     }
 
     val getQuranService = createService<QuranApiService>("https://api.alquran.cloud/v1/")
-    val getAdzanTimeService = createService<AdzanApiService>("https://api.myquran.com/v1/")
+    val getAdzanTimeService = createService<AdzanApiService>("https://api.myquran.com/v2/")
 }

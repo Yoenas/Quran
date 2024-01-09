@@ -113,32 +113,63 @@ class DetailSurahActivity : AppCompatActivity() {
             val resultNumberText = "Ayah $numberInSurah"
             tvNumberAyah.text = resultNumberText
         }
-        view.btnPlay.setOnClickListener {
-            it.isEnabled = false
-            view.btnPlay.text = getString(R.string.playing_audio)
-            mediaPlayer.setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .build()
-            )
-            try {
-                mediaPlayer.setDataSource(dataAudio.audio)
-                mediaPlayer.prepare()
-                mediaPlayer.start()
-            } catch (e: Exception) {
-                e.printStackTrace()
+        builder.setOnShowListener {
+            view.btnPlay.apply {
+                text = getString(R.string.loading_audio)
+                isEnabled = false
+                mediaPlayer.apply {
+                    setAudioAttributes(
+                        AudioAttributes.Builder()
+                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .build()
+                    )
+                    try {
+                        setDataSource(dataAudio.audio)
+                        prepareAsync()
+                        setOnPreparedListener {
+                            isEnabled = true
+                            text = getString(R.string.play_audio)
+                            setOnClickListener {
+                                it.isEnabled = false
+                                text = getString(R.string.playing_audio)
+                                start()
+                            }
+                            setOnCompletionListener {
+                                isEnabled = true
+                                text = getString(R.string.play_audio)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
             }
         }
-        view.btnCancel.setOnClickListener {
+        view.btnStop.setOnClickListener {
             mediaPlayer.stop()
             builder.dismiss()
         }
         builder.setCanceledOnTouchOutside(false)
         builder.show()
-        mediaPlayer.setOnCompletionListener {
-            builder.dismiss()
+        builder.setOnDismissListener {
+            mediaPlayer.stop()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer.stop()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mediaPlayer.stop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.stop()
     }
 
     companion object {

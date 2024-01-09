@@ -36,7 +36,7 @@ class LocationPreferences(val context: Context) {
                     val resultOfCity = when (currentLanguage) {
                         "in" -> getNameOfCity(cityListName, false)
                         "en" -> getNameOfCity(cityListName, true)
-                        else -> "Jakarta"
+                        else -> "jakarta"
                     }
                     Log.i("LocPref", "City Name: $resultOfCity")
 
@@ -62,10 +62,10 @@ class LocationPreferences(val context: Context) {
                     when (currentLanguage) {
                         "in" -> getNameOfCity(cityListName, false)
                         "en" -> getNameOfCity(cityListName, true)
-                        else -> "Jakarta"
+                        else -> "jakarta"
                     }
                 } else {
-                    "Jakarta"
+                    "jakarta"
                 }
                 Log.i("LocPref", "City Name: $resultOfCity")
 
@@ -107,6 +107,6 @@ class LocationPreferences(val context: Context) {
             }
             result = result.dropLast(1)
         }
-        return result
+        return result.lowercase()
     }
 }
