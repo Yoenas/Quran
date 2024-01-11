@@ -39,7 +39,7 @@ class AdzanFragment : Fragment() {
                         }
                     }
                     when (val adzanTime = it.data?.dailyAdzan) {
-                        is Resource.Loading -> {}
+                        is Resource.Loading -> showLoading(true)
                         is Resource.Success -> {
                             binding.apply {
                                 adzanTime.data?.let { time ->
@@ -51,13 +51,16 @@ class AdzanFragment : Fragment() {
                                     tvTimeIsya.text = time.isya
                                 }
                             }
+                            showLoading(false)
                         }
 
                         is Resource.Error -> {
+                            showLoading(false)
                             Log.e("AdzanFragment", "error getting schedule: ${adzanTime.message}", )
                             Toast.makeText(context, "Error: ${adzanTime.message}", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
+                            showLoading(false)
                             Log.e("AdzanFragment", "error getting location: ${it.message}", )
                             Toast.makeText(context, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
                         }
@@ -68,6 +71,18 @@ class AdzanFragment : Fragment() {
                     Log.e("AdzanFragment", "error observing AdzanViewModel: ${it.message}", )
                     Toast.makeText(context, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.apply {
+            if (isLoading) {
+                progressBar.visibility = View.VISIBLE
+                cvAdzanTime.visibility = View.GONE
+            } else {
+                progressBar.visibility = View.GONE
+                cvAdzanTime.visibility = View.VISIBLE
             }
         }
     }
